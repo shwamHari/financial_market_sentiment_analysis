@@ -1,6 +1,15 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
 from datasets import Dataset
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, f1_score
+
+def compute_metrics(predictions):
+    preds = predictions.predictions.argmax(-1)
+    true_labels = predictions.label_ids
+    f1 = f1_score(true_labels, preds, average='weighted')
+    return {
+        'accuracy': accuracy_score(true_labels, preds),
+        'f1': f1,
+    }
 
 def fine_tune_model(processed_csv, model_name, output_dir):
     # Load the dataset
@@ -29,6 +38,7 @@ def fine_tune_model(processed_csv, model_name, output_dir):
         num_train_epochs=3,
         weight_decay=0.01,
         logging_dir=f"{output_dir}/logs",  # Optional logging directory
+        logging_strategy="epoch",  # Log after each epoch
     )
 
     # Initialize Trainer
@@ -38,6 +48,7 @@ def fine_tune_model(processed_csv, model_name, output_dir):
         train_dataset=train_dataset,
         eval_dataset=test_dataset,
         tokenizer=tokenizer,
+        compute_metrics=compute_metrics,  # Custom metric function
     )
 
     # Fine-tune the model
