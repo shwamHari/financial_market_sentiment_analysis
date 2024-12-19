@@ -1,0 +1,4 @@
+transformers==4.31.0
+datasets==2.14.0
+torch
+pandas==1.5.3
