@@ -30,4 +30,13 @@ sentiment_map = {"positive": 2, "neutral": 1, "negative": 0}
 headlines_df['sentiment_score'] = headlines_df['sentiment'].map(sentiment_map)
 average_sentiment_score = headlines_df['sentiment_score'].mean()
 
-print(f"\nOverall Average Sentiment Score: {average_sentiment_score:.2f}")
+# Determine the sentiment category
+if 0.8 < average_sentiment_score < 1.2:
+    sentiment_category = "neutral"
+elif average_sentiment_score <= 0.8:
+    sentiment_category = "negative"
+else:
+    sentiment_category = "positive"
+
+# Print the overall average sentiment score and category
+print(f"\nOverall Average Sentiment Score: {average_sentiment_score:.2f} ({sentiment_category})")
