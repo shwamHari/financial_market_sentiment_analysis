@@ -30,11 +30,9 @@ The fine-tuned model achieves an 86% accuracy in classifying sentiment, demonstr
 
 
 Sentiment Counts:
-sentiment
-neutral     6
-positive    8
-negative    7
-Name: count, dtype: int64
+- neutral     6
+- positive    8
+- negative    7
 
 Overall Average Sentiment Score: 1.05 (neutral)
 
@@ -76,26 +74,25 @@ After training, the script evaluates the model on the test set, calculates accur
 
 Accuracy: 0.8629
 
-{
-  "negative": {
+- "negative": {
     "precision": 0.8051,
     "recall": 0.8796,
     "f1-score": 0.8407,
     "support": 108.0
-  },
-  "neutral": {
+  }
+   
+- "neutral": {
     "precision": 0.8954,
     "recall": 0.8891,
     "f1-score": 0.8922,
     "support": 568.0
-  },
-  "positive": {
+  
+- "positive": {
     "precision": 0.8229,
     "recall": 0.8061,
     "f1-score": 0.8144,
     "support": 294.0
-  },
-}
+  }
 
 
 ## Future Work
